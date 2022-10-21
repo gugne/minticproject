@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Inicio{% endblock title %}
+
+
+{% block content %}
+<!-- Showcase -->
+<section id="showcase">
+    <!--Alerta-->
+    {% include 'partials/_alertas.html' %}
+    <div class="container text-center">
+      <div class="home-search p-5">
+        <div class="overlay p-5">
+          <h1 class="display-4 mb-4">
+            El carro de tus sueños a un par de clicks
+          </h1>
+          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
+            voluptatum tempore! Consectetur, id commodi!</p>
+          <div class="search">
+            <form action="{% url 'buscar' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label class="sr-only">condicion</label>
+                    <select name="condicion" class="form-control">
+                        <option selected="true" disabled="disabled">Nuevo / Usado (Todos) </option>
+                        {% for key,value in condiciones.items %}
+                          <option value="{{value}}"> {{value}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">ubicacion</label>
+                    <select name="ubicacion" class="form-control">
+                        <option selected="true" disabled="disabled"> Ubicación (Todos) </option>
+                        {% for key,value in ubicaciones.items %}
+                          <option value="{{value}}"> {{value}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">fabricante</label>
+                  <select name="fabricante" class="form-control">
+                    <option selected="true" disabled="disabled">Fabricante (Todos)</option>
+                    {% for key,value in fabricantes.items %}
+                      <option value="{{value}}"> {{value}} </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <!-- Form Row 2 -->
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label class="sr-only">categoria</label>
+                    <select name="categoria" class="form-control">
+                        <option selected="true" disabled="disabled"> Categoría (Todos) </option>
+                        {% for key,value in categorias.items %}
+                          <option value="{{value}}"> {{value}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <select name="precio" class="form-control" id="type">
+                    <option selected="true" disabled="disabled">Precio (Cualquiera)</option>
+                    {% for key,value in precios.items %}
+                    <option value="{{value}}"> ${{value | intcomma }} </option>
+                  {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-block mt-4" type="submit">Buscar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- Listings -->
+  <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3">Ultimos listados</h3>
+      <div class="row">
+        {% if listados %}
+        <!-- por x en listado (la variable que se creo en las vistas) --> 
+          {% for listado in listados %}
+          <!-- Listing 1 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card listing-preview">
+            <img class="card-img-top" src="{{ listado.foto_principal.url }}" alt="">
+            <div class="card-img-overlay">
+              <h2>
+                <span class="badge badge-secondary text-white">${{ listado.precio | intcomma }}</span>
+              </h2>
+            </div>
+            <div class="card-body">
+              <div class="listing-heading text-center">
+                <h4 class="text-primary">{{ listado.titulo }}</h4>
+                <p>
+                  <i class="fas fa-map-marker text-secondary"></i> {{ listado.ubicacion }}</p>
+              </div>
+              <hr>
+              <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  {{ listado.kilometraje | intcomma }} Km</div>
+                <div class="col-6">
+                  {{ listado.categoria }}</div>
+              </div>
+              <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  Combustible: {{ listado.combustible }}</div>
+                <div class="col-6">
+                  Transmisión: {{ listado.transmision }}</div>
+              </div>
+              <hr>
+              <div class="row py-2 text-secondary">
+                <div class="col-12">
+                  {{ listado.fabricante }}</div>
+              </div>
+              <div class="row text-secondary pb-2">
+                <div class="col-6">
+                  <i class="fas fa-clock"></i> {{ listado.fecha_listado | timesince }}</div>
+              </div>
+              <hr>
+               <!-- 'listado'-> Es el modelo, listado.id la iteración en id -->
+              <a href="{% url  'listado' listado.id %}" class="btn btn-primary btn-block">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+          
+          {% endfor %}
+        
+        {% else %}
+          <div class="col-md-12">
+            <p>No hay carros disponibles en este momento.</p>
+          </div>
+        
+        {% endif %}
+  </section>
+
+  <section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <i class="fas fa-comment fa-4x mr-4"></i>
+          <hr>
+          <h3>Servicio de Consultas</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+            hic dignissimos ratione ea quae.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-home fa-4x mr-4"></i>
+          <hr>
+          <h3>Compraventa de usados</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+            hic dignissimos ratione ea quae.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-suitcase fa-4x mr-4"></i>
+          <hr>
+          <h3>Importamos tu vehículo</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+            hic dignissimos ratione ea quae.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

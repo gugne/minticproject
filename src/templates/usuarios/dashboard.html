@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Perfil{% endblock title %}
+
+
+{% block content %}
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <!--Alerta-->
+    {% include 'partials/_alertas.html' %}
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Inicio</a>
+          </li>
+          <li class="breadcrumb-item active">Perfil</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+<section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          <h2>Bienvenido {{ user.first_name }}</h2>
+          <p>A continuación podrás ver la lista de carros comprados</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>22</td>
+                <td>Tesla Model Y</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Listing</a>
+                </td>
+              </tr>
+              <tr>
+                <td>43</td>
+                <td>Furgón Chevrolet Nhr</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Listing</a>
+                </td>
+              </tr>
+              <tr>
+                <td>31</td>
+                <td>Nissan Leaf</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Listing</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}

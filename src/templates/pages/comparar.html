@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block title %}Comparar{% endblock title %}
+
+
+{% block content %}
+<!-- Work -->
+<section id="work" class="bg-dark text-white text-center">
+  <h2 class="display-4">Compara dos vehículos</h2>
+  <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+  <hr>
+  <a href="{% url 'listados' %}" class="btn btn-secondary text-white btn-lg">Ir al listado de vehículos</a>
+</section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Inicio </a>
+          </li>
+          <li class="breadcrumb-item active"> Comparar</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+<section id="about" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{{ listado.foto_principal.url }}" alt="car-images" class="img-main img-fluid mb-3">
+        <h2>Tesla modelo S</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Título</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fabricante</td>
+              <td>Tesla</td>
+            </tr>
+            <tr>
+              <td>Transmision</td>
+              <td>Mecánica</td>
+            </tr>
+            <tr>
+              <td>Combustible</td>
+              <td>Gas</td>
+            </tr>
+            <tr>
+              <td>Kilometraje</td>
+              <td>500Km</td>
+            </tr>
+            <tr>
+              <td>Condicion</td>
+              <td>Usado</td>
+            </tr>
+            <tr>
+              <td>Precio</td>
+              <td>$54,000,000</td>
+            </tr>
+            <tr>
+              <td><button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Eliminar</button></td>
+              <td><a href="{% url 'listados' %}" class="btn btn-secondary text-white btn-lg">Agregar</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <img src="{{ listado.foto_principal.url }}" alt="car-images" class="img-main img-fluid mb-3">
+        <h2>Tesla modelo S</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Título</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fabricante</td>
+              <td>Tesla</td>
+            </tr>
+            <tr>
+              <td>Transmision</td>
+              <td>Mecánica</td>
+            </tr>
+            <tr>
+              <td>Combustible</td>
+              <td>Gas</td>
+            </tr>
+            <tr>
+              <td>Kilometraje</td>
+              <td>500Km</td>
+            </tr>
+            <tr>
+              <td>Condicion</td>
+              <td>Usado</td>
+            </tr>
+            <tr>
+              <td>Precio</td>
+              <td>$54,000,000</td>
+            </tr>
+            <tr>
+              <td><button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Eliminar</button></td>
+              <td><a href="{% url 'listados' %}" class="btn btn-secondary text-white btn-lg">Agregar</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--
+
+<section id="team" class="py-5">
+  <div class="container">
+    <h2 class="text-center">Our Team</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <img src="assets/img/realtors/kyle.jpg" alt="" class="rounded-circle mb-3">
+        <h4>Kyle Brown</h4>
+        <p class="text-success">
+          <i class="fas fa-award text-success mb-3"></i> Realtor</p>
+        <hr>
+        <p>
+          <i class="fas fa-phone"></i> (555)-555-5555</p>
+        <p>
+          <i class="fas fa-envelope-open"></i> kyle@btrealestate.co</p>
+      </div>
+
+      <div class="col-md-4">
+        <img src="assets/img/realtors/mark.jpg" alt="" class="rounded-circle mb-3">
+        <h4>Mark Hudson</h4>
+        <p class="text-success">Realtor</p>
+        <hr>
+        <p>
+          <i class="fas fa-phone"></i> (444)-444-4444</p>
+        <p>
+          <i class="fas fa-envelope-open"></i> mark@btrealestate.co</p>
+      </div>
+
+      <div class="col-md-4">
+        <img src="assets/img/realtors/jenny.jpg" alt="" class="rounded-circle mb-3">
+        <h4>Jenny Johnson</h4>
+        <p class="text-success">Realtor</p>
+        <hr>
+        <p>
+          <i class="fas fa-phone"></i> (333)-333-3333</p>
+        <p>
+          <i class="fas fa-envelope-open"></i> jenny@btrealestate.co</p>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+{% endblock %}
