@@ -41,7 +41,7 @@ def buscar(request):
         ubicacion = request.GET['ubicacion']
         if ubicacion:
             queryset_list = queryset_list.filter(ubicacion__ubicacion__iexact=ubicacion)
-            #ubicacion__ubicacion(Foreingkey)__ixact= campo en Producto = ubicaiones (campo en)
+            #ubicacion__ubicacion(Foreingkey)= campo en Producto | __ixact= exacto | = ubicacion (campo en)
             
      #Fabricante: Marca
     if 'fabricante' in request.GET:
@@ -49,7 +49,7 @@ def buscar(request):
         if fabricante:
             queryset_list = queryset_list.filter(fabricante__fabricante__iexact=fabricante)
 
-     #Fabricante: Marca
+     #Categoría: agrigola, sedan, etc
     if 'categoria' in request.GET:
         categoria = request.GET['categoria']
         if categoria:

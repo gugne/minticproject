@@ -1,16 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Comparar{% endblock title %}
+{% load humanize %}
 
 
 {% block content %}
-<!-- Work -->
-<section id="work" class="bg-dark text-white text-center">
-  <h2 class="display-4">Compara dos vehículos</h2>
-  <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
-  <hr>
-  <a href="{% url 'listados' %}" class="btn btn-secondary text-white btn-lg">Ir al listado de vehículos</a>
-</section>
-
   <!-- Breadcrumb -->
   <section id="bc" class="mt-3">
     <div class="container">
@@ -26,140 +19,171 @@
     </div>
   </section>
 
+<!-- Work -->
+<section id="work" class="bg-dark text-white text-center">
+  <h2 class="display-4">Compara dos vehículos</h2>
+  <div class="container">
+    <div class="search">
+      <form action="{% url 'comparar' %}">
+        <div class="row">
+          <div class="col-md-6">
+            <hr>
+            <!--Fabricante1-->
+            {% comment %} <div class=" mb-3">
+              <label class="sr-only">fabricante</label>
+              <select name="fabricante1" class="form-control" onchange="this.form.submit()">
+                <option selected="true" disabled="disabled">Fabricante (Todos)</option>
+                <!--Ciclo for para options-->
+                {% for listado in listados %}
+                  <option value="{{listado.fabricante}}"> {{listado.fabricante}} </option>
+                {% endfor %}
+              </select>
+              </select>
+            </div> {% endcomment %}
+            <div class=" mb-3">
+              <label class="sr-only">vehiculo1</label>
+              <select name="vehiculo1" class="form-control" >
+                <option selected="true" disabled="disabled">Vehículo 1 (Todos)</option>
+                {% for listado in listados %}
+                    <option value="{{listado.titulo}}"
+                    {% if vehiculo1 == listado.titulo %}
+                            selected
+                    {% endif %}> {{listado.titulo}} </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <hr>
+            <!--Fabricante1-->
+            {% comment %} <div class=" mb-3">
+              <label class="sr-only">fabricante</label>
+              <select name="fabricante1" class="form-control" onchange="this.form.submit()">
+                <option selected="true" disabled="disabled">Fabricante (Todos)</option>
+                <!--Ciclo for para options-->
+                {% for listado in listados %}
+                  <option value="{{listado.fabricante}}"> {{listado.fabricante}} </option>
+                {% endfor %}
+              </select>
+              </select>
+            </div> {% endcomment %}
+            <div class=" mb-3">
+              <label class="sr-only">vehiculo2</label>
+              <select name="vehiculo2" class="form-control" >
+                <option selected="true" disabled="disabled">Vehículo 2 (Todos)</option>
+                {% for listado in listados %}
+                    <option value="{{listado.titulo}}"
+                    {% if vehiculo2 == listado.titulo %}
+                            selected
+                    {% endif %}> {{listado.titulo}} </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-block mt-4" type="submit">Comparar</button>
+      </form>
+</section>
+
 <section id="about" class="py-4">
+  
   <div class="container">
     <div class="row">
+      {% for listado in listados  %}
+      {% if vehiculo1 == listado.titulo %}
       <div class="col-md-6">
-        <img src="{{ listado.foto_principal.url }}" alt="car-images" class="img-main img-fluid mb-3">
-        <h2>Tesla modelo S</h2>
+        <img src="{{ listado.foto_principal.url }}" alt="car-images" class="card-img-top">
+        <h2>{{listado.titulo}}</h2>
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Título</th>
+              <th scope="col"><i class="fas fa-map-marker text-secondary"></i> {{ listado.ubicacion }}</p></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Fabricante</td>
-              <td>Tesla</td>
+              <td>Fabricante:</td>
+              <td>{{listado.fabricante}}</td>
             </tr>
             <tr>
-              <td>Transmision</td>
-              <td>Mecánica</td>
+              <td>Transmisión:</td>
+              <td>{{listado.transmision}}</td>
             </tr>
             <tr>
-              <td>Combustible</td>
-              <td>Gas</td>
+              <td>Combustible:</td>
+              <td>{{listado.combustible}}</td>
             </tr>
             <tr>
               <td>Kilometraje</td>
-              <td>500Km</td>
+              <td>{{listado.kilometraje | intcomma }}</td>
             </tr>
             <tr>
               <td>Condicion</td>
-              <td>Usado</td>
+              <td>{{listado.condicion}}</td>
             </tr>
             <tr>
               <td>Precio</td>
-              <td>$54,000,000</td>
+              <td>${{listado.precio | intcomma}}</td>
             </tr>
             <tr>
-              <td><button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Eliminar</button></td>
-              <td><a href="{% url 'listados' %}" class="btn btn-secondary text-white btn-lg">Agregar</a></td>
+              <td><a href="{% url  'listado' listado.id %}" class="btn btn-primary btn-block">Ver más</a></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
       </div>
+      {% endif %}
+      {% endfor %}
+
+      {% for listado in listados  %}
+      {% if vehiculo2 == listado.titulo %}
       <div class="col-md-6">
-        <img src="{{ listado.foto_principal.url }}" alt="car-images" class="img-main img-fluid mb-3">
-        <h2>Tesla modelo S</h2>
+        <img src="{{ listado.foto_principal.url }}" alt="car-images" class="card-img-top">
+        <h2>{{listado.titulo}}</h2>
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Título</th>
+              <th scope="col"><i class="fas fa-map-marker text-secondary"></i> {{ listado.ubicacion }}</p></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Fabricante</td>
-              <td>Tesla</td>
+              <td>Fabricante:</td>
+              <td>{{listado.fabricante}}</td>
             </tr>
             <tr>
-              <td>Transmision</td>
-              <td>Mecánica</td>
+              <td>Transmisión:</td>
+              <td>{{listado.transmision}}</td>
             </tr>
             <tr>
-              <td>Combustible</td>
-              <td>Gas</td>
+              <td>Combustible:</td>
+              <td>{{listado.combustible}}</td>
             </tr>
             <tr>
               <td>Kilometraje</td>
-              <td>500Km</td>
+              <td>{{listado.kilometraje | intcomma }}</td>
             </tr>
             <tr>
               <td>Condicion</td>
-              <td>Usado</td>
+              <td>{{listado.condicion}}</td>
             </tr>
             <tr>
               <td>Precio</td>
-              <td>$54,000,000</td>
+              <td>${{listado.precio | intcomma}}</td>
             </tr>
             <tr>
-              <td><button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Eliminar</button></td>
-              <td><a href="{% url 'listados' %}" class="btn btn-secondary text-white btn-lg">Agregar</a></td>
+              <td><a href="{% url  'listado' listado.id %}" class="btn btn-primary btn-block">Ver más</a></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
       </div>
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
 </section>
-
-
-<!--
-
-<section id="team" class="py-5">
-  <div class="container">
-    <h2 class="text-center">Our Team</h2>
-    <div class="row text-center">
-      <div class="col-md-4">
-        <img src="assets/img/realtors/kyle.jpg" alt="" class="rounded-circle mb-3">
-        <h4>Kyle Brown</h4>
-        <p class="text-success">
-          <i class="fas fa-award text-success mb-3"></i> Realtor</p>
-        <hr>
-        <p>
-          <i class="fas fa-phone"></i> (555)-555-5555</p>
-        <p>
-          <i class="fas fa-envelope-open"></i> kyle@btrealestate.co</p>
-      </div>
-
-      <div class="col-md-4">
-        <img src="assets/img/realtors/mark.jpg" alt="" class="rounded-circle mb-3">
-        <h4>Mark Hudson</h4>
-        <p class="text-success">Realtor</p>
-        <hr>
-        <p>
-          <i class="fas fa-phone"></i> (444)-444-4444</p>
-        <p>
-          <i class="fas fa-envelope-open"></i> mark@btrealestate.co</p>
-      </div>
-
-      <div class="col-md-4">
-        <img src="assets/img/realtors/jenny.jpg" alt="" class="rounded-circle mb-3">
-        <h4>Jenny Johnson</h4>
-        <p class="text-success">Realtor</p>
-        <hr>
-        <p>
-          <i class="fas fa-phone"></i> (333)-333-3333</p>
-        <p>
-          <i class="fas fa-envelope-open"></i> jenny@btrealestate.co</p>
-      </div>
-    </div>
-  </div>
-</section>
--->
 
 {% endblock %}
